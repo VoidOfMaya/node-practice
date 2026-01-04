@@ -14,81 +14,94 @@ Run a task with Node.js
 => node --run dev
 
 */
-// your javascript code
-// native node http get:
-const https = require('https');
+//each section is separated with  a function for ease of navigation !
 
- const getFromApi = () =>{
-    const options = {
-    hostname: 'example.com',
-    port: 443,
-    path: '/todos',
-    method: 'GET',
-    };
+const https = require('https'); // required for native https.GET/POST/PULL/DELET function
+const http = require('node:http'); // required for http.CreateServer
+const fs = require('fs'); //required for File System
 
-    const req = https.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`);
+//request examples (no axios)
+function RequestSection (){
+    // native node http get
+    const getFromApi = () =>{
+        const options = {
+        hostname: 'example.com',
+        port: 443,
+        path: '/todos',
+        method: 'GET',
+        };
 
-    res.on('data', d => {
-        process.stdout.write(d);
-    });
-    });
+        const req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
 
-    req.on('error', error => {
-    console.error(error);
-    });
+        res.on('data', d => {
+            process.stdout.write(d);
+        });
+        });
 
-    req.end();    
- }
+        req.on('error', error => {
+        console.error(error);
+        });
 
-//native node POST request
-//declarw https= reuired('https');
-const postToApi = () =>{
-    const data = JSON.stringify({
-    todo: 'Buy the milk',
-    });
+        req.end();    
+    }
 
-    const options = {
-    hostname: 'whatever.com',
-    port: 443,
-    path: '/todos',
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': data.length,
-    },
-    };
+    //native node POST request
+    //declarw https= reuired('https');
+    const postToApi = () =>{
+        const data = JSON.stringify({
+        todo: 'Buy the milk',
+        });
 
-    const req = https.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`);
+        const options = {
+        hostname: 'whatever.com',
+        port: 443,
+        path: '/todos',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length,
+        },
+        };
 
-    res.on('data', d => {
-        process.stdout.write(d);
-    });
-    });
+        const req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
 
-    req.on('error', error => {
-    console.error(error);
-    });
+        res.on('data', d => {
+            process.stdout.write(d);
+        });
+        });
 
-    req.write(data);
-    req.end();    
+        req.on('error', error => {
+        console.error(error);
+        });
+
+        req.write(data);
+        req.end();    
+    }
+    //keynote, PUT/DELETE requests follow the same POSt format with the differance being the options.method on line 53 
+    //is replaced with the desired method
+
 }
-//keynote, PUT/DELETE requests follow the same POSt format with the differance being the options.method on line 53 
-//is replaced with the desired method
+//server create example
+function ServerCreateSection (){
+    //http.createServer ([options], [requestListener])*for study purposes will be using http instead of https!
+    // Creates a local server to receive data from
+    const server = http.createServer();
 
-//http.createServer ([options], [requestListener])*for study purposes will be using http instead of https!
-const http = require('node:http');
+    // Listen to the request event
+    server.on('request', (request, res) => {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+        data: 'Hello World!',
+    }));
+    });
 
-// Creates a local server to receive data from
-const server = http.createServer();
+    server.listen(8000);    
+}
 
-// Listen to the request event
-server.on('request', (request, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({
-    data: 'Hello World!',
-  }));
-});
+//file system
+function FileSystemSection (){
+    //friendly reminded this is where our lesson on the 4th of jan 2026 ended
+}
 
-server.listen(8000);
