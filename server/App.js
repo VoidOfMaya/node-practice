@@ -76,3 +76,19 @@ const postToApi = () =>{
 }
 //keynote, PUT/DELETE requests follow the same POSt format with the differance being the options.method on line 53 
 //is replaced with the desired method
+
+//http.createServer ([options], [requestListener])*for study purposes will be using http instead of https!
+const http = require('node:http');
+
+// Creates a local server to receive data from
+const server = http.createServer();
+
+// Listen to the request event
+server.on('request', (request, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({
+    data: 'Hello World!',
+  }));
+});
+
+server.listen(8000);
