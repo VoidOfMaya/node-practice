@@ -12,6 +12,8 @@ const router =createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <App />
+    {/*handels page routing  on client side*/}
+    {/*<RouterProvider router={router}/>*/}
   </StrictMode>,
 )

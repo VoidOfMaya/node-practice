@@ -1,4 +1,9 @@
-# Basic react skelton project Template
+# Node.js PlayGround/Practice:
+this is a simple repository with react functionality how ever 
+is focused on playing around and learning about node.js
+
+
+## Basic react skelton project Template
   * note on css: this project is intended for using modular js for scoping.
   * all package files including package.json/ vite.config/ setup.js is configured
     all you need to do is clone then run :npm install to install required dependancies
