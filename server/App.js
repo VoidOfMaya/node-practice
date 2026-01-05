@@ -102,6 +102,47 @@ function ServerCreateSection (){
 
 //file system
 function FileSystemSection (){
-    //friendly reminded this is where our lesson on the 4th of jan 2026 ended
+    // Example: Read a file and change its content and read
+    //this is based on the promise-based API an other callback-basedAPI
+    //exists however it risks callback-hell if the operations are numurouis
+    async function readAndChangeFile() {
+    const fileName = '/Users/joe/test.txt';
+    try {
+        const data = await fs.readFile(fileName, 'utf8');
+        console.log(data);
+        const content = 'Some content!';
+        await fs.writeFile(fileName, content);
+        console.log('Wrote some content!');
+        const newData = await fs.readFile(fileName, 'utf8');
+        console.log(newData);
+       }catch (err) {
+        console.log(err);
+       }
+    }
+    readAndChangeFile();
+    //NOTE= By default, the writeFile API will replace the contents of the file if it does already exist.
+    //You can modify the default by specifying a flag:
+    fs.writeFile('/Users/joe/test.txt', content, { flag: 'a+' }, err => {});
+
+    /*
+    common flags
+
+    r+ = opens the file for reading and writing
+    w+ = opens the file for reading and writing and it also positions the stream at the beginning of the file
+    a  = opens the file for writing and it also positions the stream at the end of the file
+    a+ = opens the file for reading and writing and it also positions the stream at the end of the file
+    */
+
+    //Appending content to a file, this example is promise based, checkout documents for referance on using synchronous version
+
+    async function appendToFile() {
+    try {
+        const content = 'Some content!';
+        await fs.appendFile('/Users/joe/test.txt', content);
+    } catch (err) {
+        console.log(err);
+    }
+    }
+    appendToFile();
 }
 
