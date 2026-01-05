@@ -22,7 +22,7 @@ Run a task with Node.js
 const https = require('https'); // required for native https.GET/POST/PULL/DELET function
 const http = require('node:http'); // required for http.CreateServer
 const fs = require('fs'); //required for File System
-
+const EventEmitter = require('node:events'); //required for event emitter section
 
 //request examples (no axios)
 function RequestSection (){
@@ -103,7 +103,6 @@ function ServerCreateSection (){
 
     server.listen(8000);    
 }
-
 //file system
 function FileSystemSection (){
     // Example: Read a file and change its content and read
@@ -190,11 +189,9 @@ async function readFromStream (){
     }
 }
 
-
 //WHATWG URL API
 // URL constructuor is accessible as a property globaly
-/*
-content:
+/*content:
 - new url
 - hash
 - host
@@ -339,3 +336,44 @@ function toJSONhUrl(){
     console.log(JSON.stringify(myURLs));
     // Prints ["https://www.example.com/","https://test.example.org/"] 
 }
+
+//Event Emitter :-  serves a similar function to event handlers/listeners in js
+//with a focus on server side events
+function emitEvent(){
+    const eventEmitter = new EventEmitter();
+    // note emitter.on() is interchangable with emitter.addListener()
+    eventEmitter.on('start', (start, end) => {
+        onsole.log(`started from ${start} to ${end}`);
+    });
+    //triggers the event with multiple arguments
+    eventEmitter.emit('start', 1, 100);
+
+    //different example
+    const door = new EventEmitter();
+    //.emit() synchronously calls every event listener declared  in order!
+    door.emit('slam'); // emitting the event "slam"
+
+    //emitter.eventNames() Returns array of strings representing the events registered on current EventEmitter
+    door.eventNames();
+
+    //emitter.getMaxListeners() Gets maximum amount of listeners one can add to an emitter, defaults to 10,
+    //set by setMaxListeners()!
+    door.getMaxListeners();
+
+    //emitter.listenerCount() Gets count of listeners of passed  event as param
+    door.listenerCount('open');
+
+    //emitter.listeners() Gets array of event listeners passed as param
+    door.listeners('open');
+
+    //emitter.off() Alias for emitter.removeListener() added in Node.js 10
+    const doSomething = () => {};
+    door.on('open', doSomething);
+    door.removeListener('open', doSomething);
+}
+//additional emitter methods:-
+/*
+once(): add a one-time listener
+removeListener() / off(): remove an event listener from an event
+removeAllListeners(): remove all listeners for an event
+ */
