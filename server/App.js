@@ -189,3 +189,153 @@ async function readFromStream (){
     console.error(`Error: ${error.message}`);
     }
 }
+
+
+//WHATWG URL API
+// URL constructuor is accessible as a property globaly
+/*
+content:
+- new url
+- hash
+- host
+- href
+*/
+
+function  createUrl () {
+    //new url declerations take the following args (input, base)
+    const myURL = new URL('/foo','https://example.org/');
+
+
+}
+//gets & sets the hash section of the url
+function hashUrl () {
+    //gets and sets fragment portions of the url
+    const mySecondURL = new URL('https://example.org/foo#bar');
+    console.log(mySecondURL.hash);
+    // Prints #bar
+
+    mySecondURL.hash = 'baz';
+    console.log(mySecondURL.href);
+    // Prints https://example.org/foo#baz     
+}
+//gets & sets the host poriton of the url
+function hostUrl(){
+    const myURL = new URL('https://example.org:81/foo');
+    console.log(myURL.hostname);
+    // Prints example.org
+
+    // Setting the hostname does not change the port
+    myURL.hostname = 'example.com';
+    console.log(myURL.href);
+    // Prints https://example.com:81/foo
+
+    // Use myURL.host to change the hostname and port
+    myURL.host = 'example.org:82';
+    console.log(myURL.href);
+    // Prints https://example.org:82/foo 
+}
+//gets & sets the href poriton of the url
+function hrefUrl(){
+    const myURL = new URL('https://example.org/foo');
+    console.log(myURL.href);
+    // Prints https://example.org/foo
+
+    myURL.href = 'https://example.com/bar';
+    console.log(myURL.href);
+    // Prints https://example.com/bar 
+}
+//gets & sets the protocol poriton of the url
+function protocolUrl(){
+    const myURL = new URL('https://example.org');
+    console.log(myURL.protocol);
+    // Prints https:
+
+    myURL.protocol = 'ftp';
+    console.log(myURL.href);
+    // Prints ftp://example.org/ 
+}
+//gets & sets the hostname poriton of the url
+function hostNameUrl(){
+    const myURL = new URL('https://example.org:81/foo');
+    console.log(myURL.hostname);
+    // Prints example.org
+
+    // Setting the hostname does not change the port
+    myURL.hostname = 'example.com';
+    console.log(myURL.href);
+    // Prints https://example.com:81/foo
+
+    // Use myURL.host to change the hostname and port
+    myURL.host = 'example.org:82';
+    console.log(myURL.href);
+    // Prints https://example.org:82/foo 
+}
+//gets & sets the pathname poriton of the url
+function pathNameUrl(){
+    const myURL = new URL('https://example.org/abc/xyz?123');
+    console.log(myURL.pathname);
+    // Prints /abc/xyz
+
+    myURL.pathname = '/abcdef';
+    console.log(myURL.href);
+    // Prints https://example.org/abcdef?123 
+}
+//gets & sets the search poriton of the url
+function searchUrl(){
+const myURL = new URL('https://example.org/abc?123');
+console.log(myURL.search);
+// Prints ?123
+
+myURL.search = 'abc=xyz';
+console.log(myURL.href);
+// Prints https://example.org/abc?abc=xyz 
+}
+//gets & sets the search parameters poriton of the url
+function searchUrlParams (){
+    const myURL = new URL('https://example.org/abc?foo=~bar');
+
+    console.log(myURL.search);  // prints ?foo=~bar
+
+    // Modify the URL via searchParams...
+    myURL.searchParams.sort();
+
+    console.log(myURL.search);  // prints ?foo=%7Ebar 
+}
+// gets sets original url
+function originUrl(){
+    const idnURL = new URL('https://測試');
+    console.log(idnURL.origin);
+    // Prints https://xn--g6w251d
+
+    console.log(idnURL.hostname);
+    // Prints xn--g6w251d 
+}
+//gets & sets the username poriton of the url
+function usernamehUrl(){
+    const myURL = new URL('https://abc:xyz@example.com');
+    console.log(myURL.username);
+    // Prints abc
+
+    myURL.username = '123';
+    console.log(myURL.href);
+    // Prints https://123:xyz@example.com/ 
+}
+//gets & sets the password poriton of the url
+function passwordUrl(){
+    const myURL = new URL('https://abc:xyz@example.com');
+    console.log(myURL.password);
+    // Prints xyz
+
+    myURL.password = '123';
+    console.log(myURL.href);
+    // Prints https://abc:123@example.com/ 
+}
+
+function toJSONhUrl(){
+    const myURLs = [
+    new URL('https://www.example.com'),
+    new URL('https://test.example.org'),
+    ];
+    console.log(JSON.stringify(myURLs));
+    // Prints ["https://www.example.com/","https://test.example.org/"] 
+}
