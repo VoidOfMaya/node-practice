@@ -1,9 +1,12 @@
 import http from 'http';
 import fs from 'fs';
-import _ from 'loadash';
+import _ from 'lodash';
+
+
 //create server object
 const server = http.createServer((req, res)=>{
-    console.log(req.url, req.method);
+    //lodash
+    
 
     // set header content type
     res.setHeader('Content-Type','text/html');
@@ -15,7 +18,7 @@ const server = http.createServer((req, res)=>{
     //400 range - user /client error codes, 404 = not found
     //500 range - server error codes,       500 = internal server error
      
-    //setting up routing
+    //setting up routing regular way
 
     let path ='./htmlpages/'
     switch(req.url){
@@ -41,6 +44,9 @@ const server = http.createServer((req, res)=>{
             res.statusCode = 404;
             break;
     }
+
+
+
 
     //sending an html page using the fs
     fs.readFile(path,(err, data)=>{
