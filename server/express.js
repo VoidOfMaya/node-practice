@@ -9,9 +9,10 @@ import path from 'path';
 //setting up server with express.js
 const app = express();
 
-
-//listen for request
 app.listen(3000)
+
+
+//=== routing ===
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -31,3 +32,15 @@ app.get('/contact',(req, res)=>{
     res.sendFile('./htmlpages/contact.html', {root: __dirname});
     
 });
+
+//=== 300 redirects ===
+app.get('/about-us',(req,res)=>{
+    res.redirect('/about');
+})
+//=== 404 ===
+//note : make sure this is always the last method in a router, this acts as the default in a switch case
+app.use((re, res)=>{
+    res.status(404)
+       .sendFile('./htmlpages/404.html', {root: __dirname})
+    
+})
