@@ -11,8 +11,15 @@ import { people } from './peopleModule.js';
 
 const fs = require('fs');
 
-const readStream = fs.createReadStream( people , );
+const readStream = fs.createReadStream( people , {encoding: 'utf8'});
+const writeStream = fs.createWriteStream(people)
 
 readStream.on('data', (chunk)=>{
     //reminder : end of day save , 36:30 on the second video about node basics / topic: streams;
+    writeStream.write('\nNEW CHUNCK \n')
+    writeStream.write(chunk);
+
 })
+
+//piping :- this does the same thing that the above code does
+readStream.pipe(writeStream);
