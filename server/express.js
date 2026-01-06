@@ -27,6 +27,7 @@ app.get('/',(req, res)=>{
     //==>res.sendFile('./htmlpages/main.html', {root: __dirname});
 
     //ejs
+    //render takes an object to enable passing data to the view 
     res.render('main',{title: 'Home'});
 
 });
