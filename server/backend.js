@@ -44,10 +44,6 @@ const server = http.createServer((req, res)=>{
             res.statusCode = 404;
             break;
     }
-
-
-
-
     //sending an html page using the fs
     fs.readFile(path,(err, data)=>{
         err? console.log(err) : res.end(data);

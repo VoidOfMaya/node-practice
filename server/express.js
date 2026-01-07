@@ -13,8 +13,14 @@ const app = express();
 
 app.set('view engine','ejs');
 
-
-app.listen(3000)
+const PORT =  3000
+app.listen(PORT, (err)=>{
+    //note: without this any startup errors will silently fail
+    if(err){
+        throw err;
+    }
+    console.log(`express app- ;istening on port ${PORT}`)
+})
 
 
 //=== routing ===
